@@ -26,6 +26,10 @@ object residuosRadioactivos{}
 object camion{
 	var carga = []
 
+	method cosas(){
+		return cosas
+	}
+
 	method cargar(item){
 		//validacion acá primero
 		if not perteneceALista(item, carga){

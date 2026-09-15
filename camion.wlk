@@ -31,7 +31,7 @@ object camion{
 	}
 
 	method cargar(item){
-		//validacion acá primero
+		//validacion acá primero?? no sé porque no sé si debe dar error o simplemente no hacer nada
 		if not perteneceALista(item, carga){
 			carga.add(item)
 		}
@@ -39,7 +39,7 @@ object camion{
 
 	method descargar(item){
 		validarDescargar(item)
-		//valido descargar el item con ese if, y dejo carga.remove(item)
+		//valido descargar el item con ese if, y dejo carga.remove(item), lo mismo
 		if perteneceALista(item, carga){
 			carga.remove(item)
 		}else{

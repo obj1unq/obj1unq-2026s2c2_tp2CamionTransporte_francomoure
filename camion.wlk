@@ -67,4 +67,12 @@ object camion{
 	method elDeNivel(nivel){
 		return carga.filter(nivelDePeligrosidad == nivel)
 	}
+
+	method cosasMasPeligrosasQue(cosa1, cosa2){
+			return cosa1.nivelDePeligrosidad > cosa2.nivelDePeligrosidad
+	}
+
+	method esMasPeligrosoQue(cosa1, nivel){
+		return cosa1.nivelDePeligrosidad > nivel
+	}
 }

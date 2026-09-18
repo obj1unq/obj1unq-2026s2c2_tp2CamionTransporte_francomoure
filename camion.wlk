@@ -59,15 +59,11 @@ object camion{
 	method cosasMasPeligrosasQue(nivel){
 		return cosas.filter({cosa => cosa.nivelDePeligrosidad > nivel})
 	}
-	//esto se puede llamar como:
-	//cosasMasPeligrosasQue(bateriaAntiaerea.nivelDePeligrosidad)
-	//o como: cosasMasPeligrosasQue(30)
 
 	method puedeCircularEnRuta(nivelDePeligrosidadDeRuta){
 		return not self.excesoDePeso() && length (self.cosasMasPeligrosasQue(nivelDePeligrosidadDeRuta)) == 0
 	}
-	//acá chequeo que no haya exceso de peso por parte del camion entero y que además la cantidad de cosas mas peligrosas que el nivel de peligrosidad de la ruta sea nula
-	//si se cumplen las dos condiciones, puede circular, sino, no
+	
 	
 	method tieneAlgoQuePesaEntre(num1,num2){
 		return cosas.any({cosa => cosa.peso() >= num1 && cosa.peso() <= num2 })

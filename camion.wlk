@@ -2,7 +2,8 @@ import cosas.*
 
 object camion{
 	var cosas = #{}
-	
+	var miAlmacen = almacen	
+
 	method cargar(cosa){
 		validarCargar(cosa)
 		cosas.add(cosa)	
@@ -91,8 +92,14 @@ object camion{
 
 	
 	method transportar(destino, camino){
-		//validar ruta
-		/almacenarcosas
-		//vaciar camion
+		self.validarTransportar(destino, camino)//validar ruta
+		miAlmacen.almacenar(cosas)
+		cosas = cosas.clear()
+	}
+
+	method validarTransportar(){
+		if(not camino.soportaViaje(self)){
+			return self.error("no soporta el camino")
+		}
 	}
 }

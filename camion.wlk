@@ -1,63 +1,50 @@
 import cosas.*
 
-object camion {
-	const property cosas = #{}
-		
-	method cargar(unaCosa) {
-		cosas.add(unaCosa)
-	}
-}
-
-object knightRider{
-	var nivelDePeligrosidad = 10
-	var 
-	
-	method nivelDePeligrosidad{
-		return nivelDePeligrosidad
-	}
-	
-}
-object arenaGranel{}
-object bumblebee{}
-object paqueteLadrillos{}
-object bateriaAntiaerea{}
-object residuosRadioactivos{}
-
 object camion{
-	var carga = []
-
-	method cosas(){
-		return cosas
+	var cosas = #{}
+	
+	method cargar(cosa){
+		validarCargar(cosa)
+		cosas.add(cosa)	
 	}
 
-	method cargar(item){
-		//validacion acá primero?? no sé porque no sé si debe dar error o simplemente no hacer nada
-		if not perteneceALista(item, carga){
-			carga.add(item)
+	method validarCargar(cosa){
+		if(self.estaLaCosa(cosa, cosas)){
+			self.error("cosa ya cargada")
 		}
 	}
 
-	method descargar(item){
-		validarDescargar(item)
-		//valido descargar el item con ese if, y dejo carga.remove(item), lo mismo
-		if perteneceALista(item, carga){
-			carga.remove(item)
-		}else{
-			self.error("")
-		}
+	method descargar(cosa){
+		validarDescargar(cosa)
+		cosas.remove(cosa)
+	}
+
+	method validarDescargar(cosa){
+		if(not self.estaLaCosa(cosa, cosas)){
+			self.error("no puede descargar porque la cosa no está")
+		}	
+	}
+
+	//acá quizás uso un any si no hay un pertenece pre definido	
+	method estaLaCosa(cosa, cosas){
 		
 	}
 
 	method todoPesoPar(){
-		return carga.all({item => esPar(item)})
+		return cosas.all({cosa => esPar(cosa.peso())})
+	}
+
+	method esPar(n){
+		return (n % 2 == 0)
 	}
 
 	method hayAlgunoQuePesa(peso){
-		return carga.any
+		return cosas.any({cosa => cosa.peso() == peso})
 	}
 
+
 	method pesoTotal(){
-		return 1000 + carga.sum(peso de los items)
+		return 1000 + cosas.sum({cosa => cosa.peso()})
 	}
 
 	method excesoDePeso(){
@@ -65,14 +52,47 @@ object camion{
 	}
 
 	method elDeNivel(nivel){
-		return carga.filter(nivelDePeligrosidad == nivel)
+		return cosas.filter({cosa => cosas.nivelDePeligrosidad() == nivel})
+	}//me tiene que devolver una cosa pero esto me devuelve una lista...
+
+	method cosasMasPeligrosasQue(nivel){
+		return cosas.filter({cosa => cosa.nivelDePeligrosidad > nivel})
+	}
+	//esto se puede llamar como:
+	//cosasMasPeligrosasQue(bateriaAntiaerea.nivelDePeligrosidad)
+	//o como: cosasMasPeligrosasQue(30)
+
+	method puedeCircularEnRuta(nivelDePeligrosidadDeRuta){
+		return not self.excesoDePeso() && length (self.cosasMasPeligrosasQue(nivelDePeligrosidadDeRuta)) == 0
+	}
+	//acá chequeo que no haya exceso de peso por parte del camion entero y que además la cantidad de cosas mas peligrosas que el nivel de peligrosidad de la ruta sea nula
+	//si se cumplen las dos condiciones, puede circular, sino, no
+	
+	method tieneAlgoQuePesaEntre(num1,num2){
+		return cosas.any({cosa => cosa.peso() >= num1 && cosa.peso() <= num2 })
 	}
 
-	method cosasMasPeligrosasQue(cosa1, cosa2){
-			return cosa1.nivelDePeligrosidad > cosa2.nivelDePeligrosidad
+	method elementoMasPesado(){
+		var mayorPeso = cosas.max({cosa => cosa.peso()})
+		return cosas.filter({cosa => cosa.peso() == mayorPeso})
+	}//pero que pasaría si hay dos con el mismo peso, no me serviría
+
+	method pesoDeCadaElemento(){
+		return cosas.map({cosa => cosa.peso()})
 	}
 
-	method esMasPeligrosoQue(cosa1, nivel){
-		return cosa1.nivelDePeligrosidad > nivel
+	method totalDeBultos(){
+		return cosas.sum({cosa => cosa.cantidadDeBultos()})
+	}
+
+	method accidentar(){
+		cosas = cosas.map({cosa => cosa.accidentar()})
+	}
+
+	
+	method transportar(destino, camino){
+		//validar ruta
+		/almacenarcosas
+		//vaciar camion
 	}
 }

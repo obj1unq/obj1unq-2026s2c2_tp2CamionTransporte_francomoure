@@ -203,4 +203,34 @@ object embalajeDeSeguridad{
 
 	method accidentar(){}
 }
+object almacen{
+	elementosAlmacenados = #{knightRider, residuosRadioactivos}
+
+	method almacenar(elementos){
+		elementos.forEach({elem => elementosAlmacenados.add(elem)})
+	}
+}
+
+object ruta9{
+	method soportaViaje(vehiculo){
+		return vehiculo.puedeCircularEnRuta(20)
+	}
+}
+
+object caminosVecinales{
+
+	var pesoMaximo = 2000
+
+	method pesoMaximo(){
+		return pesoMaximo
+	}
+	
+	method pesoMaximo(_pesoMaximo){
+		pesoMaximo = _pesoMaximo
+	}
+
+	method soportaViaje(vehiculo){
+		return vehiculo.pesoTotal() <= pesoMaximo		
+	}		
+}
 

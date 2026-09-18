@@ -204,8 +204,3 @@ object embalajeDeSeguridad{
 	method accidentar(){}
 }
 
-
-object almacen{
-	elementosAlmacenados = #{knightRider, residuosRadioactivos}
-}
-

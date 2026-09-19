@@ -26,9 +26,9 @@ object camion{
 		}	
 	}
 
-	//acá quizás uso un any si no hay un pertenece pre definido	
+	--acá quizás uso un any si no hay un pertenece pre definido	
 	method estaLaCosa(cosa, cosas){
-		
+			
 	}
 
 	method todoPesoPar(){
@@ -54,7 +54,10 @@ object camion{
 
 	method elDeNivel(nivel){
 		return cosas.filter({cosa => cosas.nivelDePeligrosidad() == nivel})
-	}//me tiene que devolver una cosa pero esto me devuelve una lista...
+	}
+	--me tiene que devolver una cosa pero esto me devuelve una lista...
+
+
 
 	method cosasMasPeligrosasQue(nivel){
 		return cosas.filter({cosa => cosa.nivelDePeligrosidad > nivel})
@@ -72,7 +75,9 @@ object camion{
 	method elementoMasPesado(){
 		var mayorPeso = cosas.max({cosa => cosa.peso()})
 		return cosas.filter({cosa => cosa.peso() == mayorPeso})
-	}//pero que pasaría si hay dos con el mismo peso, no me serviría
+	}
+  --pero que pasaría si hay dos con el mismo peso? no me serviría
+--me cuesta entender cómo devolver un objeto en vez de un mensaje de ese objeto
 
 	method pesoDeCadaElemento(){
 		return cosas.map({cosa => cosa.peso()})

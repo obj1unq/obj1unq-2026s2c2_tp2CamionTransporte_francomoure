@@ -10,7 +10,7 @@ object camion {
 	}
 	
 	method validarCargar(cosa) {
-		if (self.estaLaCosa(cosa, cosas)) self.error("cosa ya cargada")
+		if (self.estaLaCosa(cosa)) self.error("cosa ya cargada")
 	}
 	
 	method descargar(cosa) {
@@ -19,13 +19,13 @@ object camion {
 	}
 	
 	method validarDescargar(cosa) {
-		if (not self.estaLaCosa(cosa, cosas)) self.error(
+		if (not self.estaLaCosa(cosa)) self.error(
 				"no puede descargar porque la cosa no está"
 			)
 	}
 	
 	//acá quizás uso un any si no hay un pertenece pre definido	
-	method estaLaCosa(cosa, cosas) = cosas.any({ unaCosa => unaCosa == cosa })
+	method estaLaCosa(cosa) = cosas.any({ unaCosa => unaCosa == cosa })
 	
 	method todoPesoPar() = cosas.all({ cosa => null.esPar(cosa.peso()) })
 	

@@ -122,7 +122,7 @@ object bateriaAntiaerea {
 	}
 	
 	method accidentar() {
-		estaConMisiles = False
+		estaConMisiles = false
 	}
 }
 

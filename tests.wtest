@@ -1,0 +1,33 @@
+import camion.*
+import cosas.*
+
+describe "Tests" {
+  test "cargas" {
+    camion.cargar(bumblebee)
+    assert.that(camion.cosas().contains(bumblebee))
+    camion.cargar(knightRider)
+    assert.that(camion.cosas().contains(knightRider))
+    camion.descargar(bumblebee)
+    assert.that(!camion.cosas().contains(bumblebee))
+    camion.cargar(knightRider)
+    camion.descargar(bumblebee)
+  }
+  
+  test "pesos" {
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    arenaAGranel.peso(50)
+    assert.that(camion.pesoDeLasCosas().even())
+    arenaAGranel.peso(51)
+    assert.that(!camion.pesoDeLasCosas().even())
+  }
+  
+  test "hayCosasDeTalPeso" {
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    arenaAGranel.peso(50)
+    assert.that(camion.hayAlgunoQuePesa(50))
+    assert.that(camion.hayAlgunoQuePesa(800))
+    assert.that(camion.hayAlgunoQuePesa(500))
+  }
+}

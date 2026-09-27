@@ -1,0 +1,30 @@
+Los polimorfismos que se encuentran son: 
+auto/robot que son referenciados en el modo de bumblebee
+bumblebee emite el mensaje polimorfico
+
+sus mensajes son:
+.peligrosidad()
+.accidentar()
+
+y entre los objetos principales son:
+.peligrosidad()
+.cantidadDeBultos()
+.accidentar()
+.peso()
+
+hay otro polimorfismo en bateriaAerea que puede 
+recibir el objeto conMisiles o sinMisiles, los cuales poseen los mensajes:
+.peso()
+.peligrosidad()
+.cantidadDeBultos()
+
+tambien hay otro polimorfismo en el contenedor portuario
+ya que hace referencia a un embalaje de seguridad
+que referencia a un elemento que envuelve.
+por ende el emisor es el contenedor portuario
+dichos elementos tienen estos mensajes:
+
+.peso()
+.peligrosidad()
+.cantidadDeBultos()
+.accidentar()

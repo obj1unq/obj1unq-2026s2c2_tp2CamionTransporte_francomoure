@@ -193,7 +193,7 @@ object contenedorPortuario {
 }
 
 object embalajeDeSeguridad {
-	const elementoAlQueEnvuelve = contenedorPortuario
+	var property elementoAlQueEnvuelve = contenedorPortuario
 	
 	method peso() = elementoAlQueEnvuelve.peso()
 	

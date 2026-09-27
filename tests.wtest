@@ -30,4 +30,33 @@ describe "Tests" {
     assert.that(camion.hayAlgunoQuePesa(800))
     assert.that(camion.hayAlgunoQuePesa(500))
   }
+  
+  test "excesoDePeso" {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantidadDeLadrillos(300)
+    assert.equals(camion.pesoTotal(), 2600)
+    assert.that(camion.excesoDePeso())
+  }
+  
+  test "contenedor" {
+    assert.that(
+      (contenedorPortuario.peso() == 100) && (contenedorPortuario.peligrosidad() == 0)
+    )
+    contenedorPortuario.elementosQueContiene.add(knightRider)
+    contenedorPortuario.elementosQueContiene.add(arenaAGranel)
+    arenaAGranel.peso(50)
+    assert.that(
+      (contenedorPortuario.peso() == 650) && (contenedorPortuario.peligrosidad() == 10)
+    )
+    embalajeDeSeguridad.elementoAlQueEnvuelve(knightRider)
+    assert.that(
+      (embalajeDeSeguridad.peso() == 500) && (embalajeDeSeguridad.peligrosidad() == 5)
+    )
+    embalajeDeSeguridad.elementoAlQueEnvuelve(bumblebee)
+    bumblebee.modoActual(auto)
+    assert.that(
+      (embalajeDeSeguridad.peso() == 800) && (embalajeDeSeguridad.peligrosidad() == 7.5)
+    )
+  }
 }

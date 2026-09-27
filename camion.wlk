@@ -1,7 +1,7 @@
 import cosas.*
 
 object camion {
-	var cosas = #{}
+	const property cosas = #{}
 	var miAlmacen = almacen
 	
 	method cargar(cosa) {
@@ -27,54 +27,52 @@ object camion {
 	//acá quizás uso un any si no hay un pertenece pre definido	
 	method estaLaCosa(cosa) = cosas.any({ unaCosa => unaCosa == cosa })
 	
-	method todoPesoPar() = cosas.all({ cosa => null.esPar(cosa.peso()) })
-	
-	method esPar(n) = (n % 2) == 0
+	method todoPesoPar() = cosas.all({ cosa => cosa.peso().even() })
 	
 	method hayAlgunoQuePesa(peso) = cosas.any({ cosa => cosa.peso() == peso })
 	
-	method pesoTotal() = 1000 + cosas.sum({ cosa => cosa.peso() })
+	method pesoDeLasCosas() = cosas.sum({ cosa => cosa.peso() })
+	
+	method pesoTotal() = 1000 + self.pesoDeLasCosas()
 	
 	method excesoDePeso() = self.pesoTotal() > 2500
 	
-	method elDeNivel(nivel) = cosas.filter(
-		{ cosa => cosas.nivelDePeligrosidad() == nivel }
+	method elDeNivel(nivel) = cosas.find(
+		{ cosa => cosa.nivelDePeligrosidad() == nivel }
 	)
 	
-	//me tiene que devolver una cosa pero esto me devuelve una lista...
-	method cosasMasPeligrosasQue(nivel) = cosas.filter(
+	method cosasMasPeligrosasQue(nivel) = cosas.find(
+		{ cosa => cosa.nivelDePeligrosidad() > nivel }
+	)
+	
+	method coleccionDeCosasMasPeligrosasQue(nivel) = cosas.filter(
 		{ cosa => cosa.nivelDePeligrosidad() > nivel }
 	)
 	
 	method puedeCircularEnRuta(
 		nivelDePeligrosidadDeRuta
-	) = (not self.excesoDePeso()) && (null.length(
-		self.cosasMasPeligrosasQue(nivelDePeligrosidadDeRuta)
-	) == 0)
+	) = (not self.excesoDePeso()) && self.coleccionDeCosasMasPeligrosasQue(
+		nivelDePeligrosidadDeRuta
+	).isEmpty()
 	
 	method tieneAlgoQuePesaEntre(num1, num2) = cosas.any(
-		{ cosa => (cosa.peso() >= num1) && (cosa.peso() <= num2) }
+		{ cosa => cosa.peso().between(num1, num2) }
 	)
 	
-	method elementoMasPesado() {
-		var mayorPeso = cosas.max({ cosa => cosa.peso() })
-		return cosas.filter({ cosa => cosa.peso() == mayorPeso })
-	}
+	method elementoMasPesado() = cosas.max({ cosa => cosa.peso() })
 	
-	//pero que pasaría si hay dos con el mismo peso? no me serviría
-	//me cuesta entender cómo devolver un objeto en vez de un mensaje de ese objeto
 	method pesoDeCadaElemento() = cosas.map({ cosa => cosa.peso() })
 	
 	method totalDeBultos() = cosas.sum({ cosa => cosa.cantidadDeBultos() })
 	
 	method accidentar() {
-		cosas = cosas.map({ cosa => cosa.accidentar() })
+		cosas.foreach({ cosa => cosa.accidentar() })
 	}
 	
 	method transportar(destino, camino) {
-		self.validarTransportar(destino, camino) //validar ruta
+		self.validarTransportar(destino, camino)
 		miAlmacen.almacenar(cosas)
-		cosas = cosas.clear()
+		cosas.clear()
 	}
 	
 	method validarTransportar(destino, camino) {

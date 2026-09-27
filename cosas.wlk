@@ -1,9 +1,21 @@
 object auto {
+	const abejorro = bumblebee
 	
+	method peligrosidad() = 15
+	
+	method accidentar() {
+		abejorro.modoActual(robot)
+	}
 }
 
 object robot {
+	const abejorro = bumblebee
 	
+	method peligrosidad() = 30
+	
+	method accidentar() {
+		abejorro.modoActual(auto)
+	}
 }
 
 object knightRider {
@@ -39,13 +51,7 @@ object arenaAGranel {
 object bumblebee {
 	var modoActual = auto
 	
-	method peligrosidad() {
-		if (modoActual == auto) {
-			return 15
-		} else {
-			return 30
-		}
-	}
+	method peligrosidad() = modoActual.peligrosidad()
 	
 	method modoActual(_modoActual) {
 		modoActual = _modoActual
@@ -58,7 +64,7 @@ object bumblebee {
 	method cantidadDeBultos() = 2
 	
 	method accidentar() {
-		if (modoActual == auto) self.modoActual(robot) else self.modoActual(auto)
+		modoActual.accidentar()
 	}
 }
 
@@ -99,31 +105,47 @@ object bateriaAntiaerea {
 	
 	method peso() {
 		if (estaConMisiles) {
-			return 300
+			return conMisiles.peso()
 		} else {
-			return 200
+			return sinMisiles.peso()
 		}
 	}
 	
 	method peligrosidad() {
 		if (estaConMisiles) {
-			return 100
+			return conMisiles.peligrosidad()
 		} else {
-			return 0
+			return sinMisiles.peligrosidad()
 		}
 	}
 	
 	method cantidadDeBultos() {
 		if (not estaConMisiles) {
-			return 1
+			return sinMisiles.cantidadDeBultos()
 		} else {
-			return 2
+			return conMisiles.cantidadDeBultos()
 		}
 	}
 	
 	method accidentar() {
 		estaConMisiles = false
 	}
+}
+
+object conMisiles {
+	method peso() = 300
+	
+	method peligrosidad() = 10
+	
+	method cantidadDeBultos() = 2
+}
+
+object sinMisiles {
+	method peso() = 200
+	
+	method peligrosidad() = 0
+	
+	method cantidadDeBultos() = 1
 }
 
 object residuosRadioactivos {
@@ -143,26 +165,30 @@ object residuosRadioactivos {
 }
 
 object contenedorPortuario {
-	var elementosQueContiene = #{}
+	const elementosQueContiene = #{}
+	
+	method peligrosidadDelMasPeligroso() = elementosQueContiene.map(
+		{ elemento => elemento.peligrosidad() }
+	).max()
 	
 	method peligrosidad() {
 		if (elementosQueContiene.size() == 0) {
 			return 0
 		} else {
-			return elementosQueContiene.map(
-				{ elemento => elemento.peligrosidad() }
-			).max()
+			return self.peligrosidadDelMasPeligroso()
 		}
 	}
 	
 	method peso() = 100 + elementosQueContiene.sum({ elemento => elemento.peso() })
 	
-	method cantidadDeBultos() = 1 + elementosQueContiene.sum(
-		{ elem => elem.cantidadDeBultos() }
+	method cantidadBultosQueContiene() = elementosQueContiene.sum(
+		{ elemento => elemento.cantidadDeBultos() }
 	)
 	
+	method cantidadDeBultos() = 1 + self.cantidadBultosQueContiene()
+	
 	method accidentar() {
-		elementosQueContiene = elementosQueContiene.map({ elem => elem.accidentar() })
+		elementosQueContiene.foreach({ elem => elem.accidentar() })
 	}
 }
 
@@ -181,7 +207,7 @@ object embalajeDeSeguridad {
 }
 
 object almacen {
-	var elementosAlmacenados = #{knightRider, residuosRadioactivos}
+	const elementosAlmacenados = #{}
 	
 	method almacenar(elementos) {
 		elementos.forEach({ elem => elementosAlmacenados.add(elem) })

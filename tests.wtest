@@ -148,4 +148,29 @@ describe "Tests" {
     paqueteDeLadrillos.cantidadDeLadrillos(350)
     assert.equals(4, camion.totalDeBultos())
   }
+  
+  test "accidentes caso 1" {
+    camion.cargar(bumblebee)
+    bumblebee.modoActual(auto)
+    camion.cargar(embalajeDeSeguridad)
+    embalajeDeSeguridad.elementoAlQueEnvuelve(residuosRadioactivos)
+    residuosRadioactivos.peso(30)
+    camion.cargar(arenaAGranel)
+    arenaAGranel.peso(50)
+    camion.cargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantidadDeLadrillos(100)
+    camion.cargar(bateriaAntiaerea)
+    bateriaAntiaerea.estaConMisiles(true)
+    camion.accidentar()
+    
+    assert.equals(robot, bumblebee.modoActual())
+    assert.equals(residuosRadioactivos.peso(), 30)
+    assert.equals(arenaAGranel.peso(), 70)
+    assert.equals(paqueteDeLadrillos.cantidadDeLadrillos(), 88)
+    assert.equals(bateriaAntiaerea.estaConMisiles(), false)
+  }
+  
+  test "accidentes caso 2" {
+    
+  }
 }

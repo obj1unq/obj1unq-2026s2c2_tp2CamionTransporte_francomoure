@@ -171,6 +171,67 @@ describe "Tests" {
   }
   
   test "accidentes caso 2" {
+    camion.cargar(bumblebee)
+    bumblebee.modoActual(robot)
+    camion.cargar(residuosRadioactivos)
+    residuosRadioactivos.peso(30)
+    camion.cargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantidadDeLadrillos(10)
+    camion.cargar(bateriaAntiaerea)
+    bateriaAntiaerea.estaConMisiles(false)
     
+    camion.accidentar()
+    
+    assert.equals(bumblebee.modoActual(), auto)
+    assert.equals(residuosRadioactivos.peso(), 45)
+    assert.equals(paqueteDeLadrillos.cantidadDeLadrillos(), 0)
+    assert.equals(bateriaAntiaerea.estaConMisiles(), false)
+  }
+  
+  test "rutasYcaminos caso 1" {
+    almacen.almacenar(knightRider)
+    almacen.almacenar(residuosRadioactivos)
+    camion.cargar(bumblebee)
+    bumblebee.modoActual(auto)
+    camion.cargar(arenaAGranel)
+    arenaAGranel.peso(50)
+    
+    assert.that()
+  }
+  
+  test "rutasYcaminos caso 2" {
+    almacen.almacenar(knightRider)
+    almacen.almacenar(residuosRadioactivos)
+    camion.cargar(bumblebee)
+    bumblebee.modoActual(auto)
+    camion.cargar(arenaAGranel)
+    arenaAGranel.peso(50)
+  }
+  
+  test "rutasYcaminos caso 3" {
+    almacen.almacenar(knightRider)
+    almacen.almacenar(residuosRadioactivos)
+    camion.cargar(bumblebee)
+    bumblebee.modoActual(auto)
+    camion.cargar(arenaAGranel)
+    arenaAGranel.peso(50)
+  }
+  
+  test "rutasYcaminos caso 4" {
+    almacen.almacenar(knightRider)
+    almacen.almacenar(residuosRadioactivos)
+    camion.cargar(bumblebee)
+    bumblebee.modoActual(auto)
+    camion.cargar(arenaAGranel)
+    arenaAGranel.peso(50)
+  }
+  
+  test "rutasYcaminos caso 5" {
+    almacen.almacenar(knightRider)
+    almacen.almacenar(residuosRadioactivos)
+    camion.cargar(bumblebee)
+    bumblebee.modoActual(auto)
+    camion.cargar(arenaAGranel)
+    arenaAGranel.peso(50)
   }
 }

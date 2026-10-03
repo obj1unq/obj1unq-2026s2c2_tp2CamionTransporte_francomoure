@@ -68,4 +68,34 @@ describe "Tests" {
     assert.that(camion.tieneAlgoQuePesaEntre(5, 1000))
     assert.that(!camion.tieneAlgoQuePesaEntre(900, 1000))
   }
+  
+  test "peligrosidad" {
+    camion.cargar(knightRider)
+    camion.cargar(bateriaAntiaerea)
+    assert.that(
+      camion.cosasMasPeligrosasQue(15).contains(
+        bateriaAntiaerea
+      ) and (camion.cosasMasPeligrosasQue(15).length() == 1)
+    )
+    assert.that(
+      camion.cosasMasPeligrosasQue(bumblebee).contains(
+        bateriaAntiaerea
+      ) and (camion.cosasMasPeligrosasQue(bumblebee).length() == 1)
+    )
+    assert.that(camion.cosasMasPeligrosasQue(2).contains(knightRider))
+    assert.that(camion.cosasMasPeligrosasQue(2).contains(bateriaAntiaerea))
+    assert.that(camion.cosasMasPeligrosasQue(paqueteDeLadrillos).length() == 2)
+    assert.that(
+      camion.cosasMasPeligrosasQue(paqueteDeLadrillos).contains(knightRider)
+    )
+    assert.that(
+      camion.cosasMasPeligrosasQue(paqueteDeLadrillos).contains(
+        bateriaAntiaerea
+      )
+    )
+    assert.that(camion.cosasMasPeligrosasQue(200).isEmpty())
+    assert.that(
+      camion.cosasMasPeligrosasQue(residuosRadioactivos).length() == 0
+    )
+  }
 }

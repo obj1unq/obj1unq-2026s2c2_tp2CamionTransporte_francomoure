@@ -188,7 +188,7 @@ describe "Tests" {
     assert.equals(bateriaAntiaerea.estaConMisiles(), false)
   }
   
-  test "rutasYcaminos caso 1" {
+  test "ruta 9 exitoso" {
     almacen.almacenar(knightRider)
     almacen.almacenar(residuosRadioactivos)
     camion.cargar(bumblebee)
@@ -196,10 +196,16 @@ describe "Tests" {
     camion.cargar(arenaAGranel)
     arenaAGranel.peso(50)
     
-    assert.that(true)
+    assert.that(ruta9.soportaViaje(camion))
+    camion.transportar(almacen, ruta9)
+    assert.equals(
+      almacen.elementosAlmacenados(),
+      [knightRider, residuosRadioactivos, bumblebee, arenaAGranel]
+    )
+    assert.equals(camion.cosas(), [])
   }
   
-  test "rutasYcaminos caso 2" {
+  test "ruta 9 fallido por peligrosidad" {
     almacen.almacenar(knightRider)
     almacen.almacenar(residuosRadioactivos)
     camion.cargar(bumblebee)

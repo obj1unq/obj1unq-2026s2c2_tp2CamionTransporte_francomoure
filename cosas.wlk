@@ -211,6 +211,8 @@ object embalajeDeSeguridad {
 object almacen {
 	const elementosAlmacenados = #{}
 	
+	method elementosAlmacenados() = elementosAlmacenados
+	
 	method almacenar(elementos) {
 		elementos.forEach({ elem => elementosAlmacenados.add(elem) })
 	}

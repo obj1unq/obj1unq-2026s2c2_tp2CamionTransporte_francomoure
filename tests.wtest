@@ -98,4 +98,54 @@ describe "Tests" {
       camion.cosasMasPeligrosasQue(residuosRadioactivos).length() == 0
     )
   }
+  
+  test "puedeCircularEnRuta" {
+    camion.cargar(bumblebee)
+    bumblebee.modoActual(auto)
+    camion.cargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantidadDeLadrillos(300)
+    assert.that(camion.puedeCircularEnRuta(20))
+    paqueteDeLadrillos.cantidadDeLadrillos(400)
+    assert.that(camion.excesoDePeso())
+    assert.that(!camion.puedeCircularEnRuta(20))
+    paqueteDeLadrillos.cantidadDeLadrillos(300)
+    bumblebee.modoActual(robot)
+    assert.that(!camion.puedeCircularEnRuta(20))
+  }
+  
+  test "pesos1" {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantidadDeLadrillos(300)
+  }
+  
+  test "cantidad de bultos caso 1" {
+    camion.cargar(contenedorPortuario)
+    contenedorPortuario.elementosQueContiene.add(knightRider)
+    contenedorPortuario.elementosQueContiene.add(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantidadDeLadrillos(50)
+    camion.cargar(embalajeDeSeguridad)
+    embalajeDeSeguridad.elementoAlQueEnvuelve(residuosRadioactivos)
+    camion.cargar(bateriaAntiaerea)
+    bateriaAntiaerea.estaConMisiles(false)
+    assert.equals(9, camion.totalDeBultos())
+  }
+  
+  test "cantidad de bultos caso 2" {
+    camion.cargar(contenedorPortuario)
+    camion.cargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantidadDeLadrillos(150)
+    camion.cargar(bateriaAntiaerea)
+    bateriaAntiaerea.estaConMisiles(true)
+    assert.equals(5, camion.totalDeBultos())
+  }
+  
+  test "cantidad de bultos caso 3" {
+    camion.cargar(arenaAGranel)
+    camion.cargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantidadDeLadrillos(350)
+    assert.equals(4, camion.totalDeBultos())
+  }
 }

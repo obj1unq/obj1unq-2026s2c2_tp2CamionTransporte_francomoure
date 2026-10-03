@@ -101,7 +101,7 @@ object paqueteDeLadrillos {
 }
 
 object bateriaAntiaerea {
-	var estaConMisiles = false
+	var property estaConMisiles = false
 	
 	method peso() {
 		if (estaConMisiles) {
